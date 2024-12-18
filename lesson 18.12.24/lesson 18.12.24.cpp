@@ -2,59 +2,61 @@
 
 using namespace std;
 
-class Mobile {
-protected:
-    bool powerButton;
-public:
-    Mobile() {
-        powerButton = true;
-    }
-    virtual void CallAny() = 0;  
+class IMovable {
+public :
+	virtual void Move() = 0;
 };
 
-class Smartphone : public Mobile { 
-    bool sensorScreen;
-public:
-    Smartphone() {
-        powerButton = true;
-        sensorScreen = true;
-    }
-    void CallAny() override {
-        cout << "Calling your mom..." << endl;
-    }
-    void PlayGames() {
-        cout << "Play PUBG Mobile..." << endl;
-    }
+class IDrivable {
+public :
+	virtual void Drive() = 0;
+}; 
+ 
+class IFlyable {
+public :
+	virtual void Fly() = 0;
 };
 
-class CameraPhone : public Mobile {  
-    bool coolCamera;
+class ISwimable {
 public:
-    CameraPhone() {
-        coolCamera = true;
-        powerButton = true;
-    }
-    void CallAny() override {
-        cout << "Calling your father..." << endl;
-    }
-    void MakeTikTokVideo() {
-        cout << "Make TikTok video..." << endl;
-    }
+	virtual void Swim() = 0;
 };
+
+class Human : public IMovable{
+public: 
+	void Move() override {
+		cout << "Person can move" << endl;
+	}
+ };
+
+class Car : public IDrivable {
+public:
+	void Drive() override {
+		cout << "Car can drive" << endl;
+	}
+};
+
+class Ship : public ISwimable {
+public:
+	void Swim() override {
+		cout << "Ship can swim" << endl;
+	}
+};
+class Flying : public IFlyable {
+public:
+	void Fly() override {
+		cout << "flying can fly" << endl;
+	}
+};
+
 
 int main() {
-    Mobile* ptr; 
-    Smartphone obj;  
-    ptr = &obj;
-
-    ptr->CallAny();  
-    obj.PlayGames();
-
-    CameraPhone obj2;  
-    ptr = &obj2;
-
-    ptr->CallAny();  
-    obj2.MakeTikTokVideo();
-
-    return 0;
+	IMovable* ptr = new Human();
+	ptr->Move();
+	IDrivable* ptr2 = new Car();
+	ptr2->Drive();
+	IFlyable* ptr3 = new Flying();
+	ptr3->Fly();
+	ISwimable* ptr4 = new Ship();
+	ptr4->Swim();
 }
